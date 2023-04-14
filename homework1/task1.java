@@ -1,5 +1,4 @@
-/* Вычислить n-ое треугольного число (сумма чисел от 1 до n), 
-n! (произведение чисел от 1 до n */
+/* Вычислить n-ое треугольного число (сумма чисел от 1 до n) */
 package homework1;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,9 +14,6 @@ public class task1 {
         
         System.out.println(String.format(
             "%d-е треугольное число = %d", n, triangle_number_calc(n) 
-        ));
-        System.out.println(String.format(
-            "%d!  = %d", n, factorial(n) 
         ));
     }
 
