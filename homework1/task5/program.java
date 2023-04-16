@@ -2,7 +2,6 @@ package homework1.task5;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.ArrayList;
@@ -32,13 +31,11 @@ public class program {
                         System.out.println(String.join("\n",variants));
                     }
                 }
-                else if (str.charAt(0) == 'q')
+                else if (str.charAt(0) != 'q')
                 {
-                    
-                }
-                else{
                     System.out.println("Введено некорректное выражение");
                 }
+
             } while (str.charAt(0) != 'q');
             br.close();
         }
