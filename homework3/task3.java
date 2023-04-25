@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-import webinar3.main;
 
 /**
  * task3
