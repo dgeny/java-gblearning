@@ -3,6 +3,11 @@ package homework4;
 import java.util.Arrays;
 import java.util.Random;
 
+/* Реализуйте очередь с помощью массива со следующими методами: 
+    a. enqueue() - помещает элемент в конец очереди, 
+    b. dequeue() - возвращает первый элемент из очереди и удаляет его, 
+    c. first() - возвращает первый элемент из очереди, не удаляя. */
+
 public class task4 {
     public static void main(String[] args) {
         QueueViaArray queue = generateRandomQueue(10,0,10);
