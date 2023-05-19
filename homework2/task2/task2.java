@@ -2,7 +2,6 @@ package task2;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;

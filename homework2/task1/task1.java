@@ -1,8 +1,6 @@
 package task1;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.FileHandler;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import java.util.regex.Matcher;
@@ -61,26 +59,6 @@ public class task1 {
         }
         return resBuilder.toString();
     }
-
-    static void saveToFile(String s) {
-        
-        FileHandler fileHandler = null;
-        
-        SimpleFormatter formatter = new SimpleFormatter();
-        fileHandler.setFormatter(formatter);
-        logger.addHandler(fileHandler);
-        String path = "g/g/g/g/gtest.txt";
-        try (FileWriter fileWriter = new FileWriter(path, false)) {
-            fileWriter.append(s);
-            fileWriter.flush();
-        } catch (Exception e) {
-            //e.printStackTrace();
-            logger.warning( e.getMessage());
-        }
-        System.out.println("Тест");
-        fileHandler.close();
-    }
-
 
     private static void InitLog(String path){
 
