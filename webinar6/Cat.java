@@ -1,5 +1,6 @@
 package webinar6;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Cat {
@@ -42,13 +43,16 @@ public class Cat {
     }
 
     private List<String> healthHistory;
-
+    public void addHeathHistory(String historyRecord){
+        healthHistory.add(historyRecord);
+    }
     
     public Cat(String name, String breed, Integer age, Owner owner) {
         this.name = name;
         this.breed = breed;
         this.age = age;
         this.owner = owner;
+        healthHistory = new ArrayList<String>();
     }
     public Cat(String catName){
         this.setName(catName);
@@ -67,7 +71,7 @@ public class Cat {
             && this.name.equals(ct.name) 
             && this.breed.equals(ct.breed) 
             && this.age.equals(ct.age);
-            
+
     }
 
     @Override
