@@ -1,7 +1,6 @@
 package homework5.task3;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Random;
@@ -12,7 +11,7 @@ import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-public class main {
+public class program {
     private static Logger logger = Logger.getAnonymousLogger();
     public static void main(String[] args) {
         initLog("heapsorting.log");

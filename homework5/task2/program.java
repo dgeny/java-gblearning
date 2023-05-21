@@ -17,7 +17,7 @@ import java.util.TreeMap;
    Отсортировать по убыванию популярности. 
    Для сортировки использовать TreeMap. 
 */
-public class main {
+public class program {
     public static void main(String[] args) {
         List<String> employes = initList();
         System.out.println("Исходный список:");

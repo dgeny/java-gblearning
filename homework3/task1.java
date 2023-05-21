@@ -14,6 +14,7 @@ public class task1 {
         ArrayList<Integer> list = generateRandomList(size, startRange, endRange);
         System.out.println(list);
         removeEvens2(list);
+        removeEvens(list);
         System.out.println(list);
     }
 

@@ -4,7 +4,7 @@ import java.util.Map;
 
 /* Реализуйте структуру телефонной книги с помощью HashMap, учитывая, 
     что 1 человек может иметь несколько телефонов. */
-public class main {
+public class program {
     public static void main(String[] args) {
         /* Реализации полного функционала работы с книгой нет в условии 
          * По сути CRUD - это про контроллер, а не модель
