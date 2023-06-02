@@ -11,8 +11,8 @@ import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.io.IOException;
 
 
@@ -36,28 +36,102 @@ P.S. Частые ошибки смотри в конце семинара
 public class program {
     private static Logger logger = Logger.getAnonymousLogger();
     public static void main(String[] args) {
+        
         initLog("laptops.log");
         logger.info("load laptop dataset");
-        Set<Laptop> notebooks = loadShopList("homework6/laptops.csv");
-        logger.info("Загружено " + notebooks.size() + " записей");
-        for (Laptop notebook : notebooks) {
-            System.out.println(notebook);
+        Set<Laptop> laptops = loadShopList();
+        Laptop criteria = inputFilter();
+        int count =0;
+        System.out.println("Поиск строгих совпадений:");
+        for (Laptop laptop : laptops) {
+            if(criteria.partialEquals(laptop)){
+                System.out.println(laptop);
+                count++;
+            }
+        }
+        if (count == 0){
+            System.out.println("\t - не найдено");
+        }
+        count = 0;
+        System.out.println("Список ноутбуков не хуже искомого:");
+        for (Laptop laptop : laptops) {
+            if(criteria.moreEquals(laptop)){
+                System.out.println(laptop);
+                count++;
+            }
+        }
+        if (count == 0){
+            System.out.println("\t - не найдено");
+
         }
         closeLog();
     }
 
-    private static Set<Laptop> loadShopList(String path) {
-        Set<Laptop> notebooks = new HashSet<>();
-        try {
-            Scanner sc = new Scanner(new File(path));
-            while (sc.hasNextLine()) {
-                System.out.println(sc.nextLine());
-            }
-        } catch (FileNotFoundException e) {
-            logger.severe(e.getMessage());
+    private static Laptop inputFilter(){
+        var con = System.console();
+        if(con == null){
+            logger.info("Ошибка инициализации консоли");
+            return null;
         }
-        //notebooks.add(new Notebook("SKU-1", "Lenovo", "Thinkpad x220")
-        return notebooks;
+        Laptop lp = new Laptop();
+        con.writer().print("Поиск ноутбука\n");
+        con.writer().print("Введите объем ОЗУ:");
+        con.writer().flush();
+        Scanner sc = new Scanner(con.reader());
+        lp.ramMB = sc.nextInt();
+        con.writer().print("Введите объем ЖД:");
+        con.writer().flush();
+        lp.volumeStorage = sc.nextInt();
+        con.writer().print("Введите ОС:");
+        con.writer().flush();
+        lp.operationalSystem = sc.next();
+        con.writer().print("Введите цвет:");
+        con.writer().flush();
+        lp.color = sc.next();
+        return lp;
+    }
+
+    private static Set<Laptop> loadShopList() {
+        Set<Laptop> laptops = new HashSet<>();
+        
+        laptops.add(new Laptop("SKU001", "Lenovo", "Model1", 2048, 512, "i3", "1368x768", "Windows", "black", 300.0));
+        laptops.add(new Laptop("SKU002", "Lenovo", "Model2", 4096, 1024, "i3", "1368x768", "Linux", "black", 350.0));
+        laptops.add(new Laptop("SKU003", "Lenovo", "Model3", 8192, 512, "i5", "1920x1080", "Windows", "black", 400.0));
+        laptops.add(new Laptop("SKU004", "Lenovo", "Model4", 2048, 256, "i5", "1920x1080", "Windows", "black", 450.0));
+        laptops.add(new Laptop("SKU005", "Lenovo", "Model5", 4096, 1024, "i5", "1920x1080", "Windows", "black", 500.0));
+        laptops.add(new Laptop("SKU006", "Dell", "Model1", 2048, 512, "i3", "1368x768", "Windows", "black", 300.0));
+        laptops.add(new Laptop("SKU007", "Dell", "Model2", 4096, 1024, "Ryzen3", "1368x768", "Linux", "black", 350.0));
+        laptops.add(new Laptop("SKU008", "Dell", "Model3", 8192, 512, "i5", "1920x1080", "Windows", "black", 400.0));
+        laptops.add(new Laptop("SKU009", "Dell", "Model4", 2048, 256, "i5", "1920x1080", "Windows", "black", 450.0));
+        laptops.add(new Laptop("SKU010", "Dell", "Model5", 4096, 1024, "Ryzen5", "1920x1080", "Windows", "black", 500.0));
+        //проверка заггрузки дубля
+        laptops.add(new Laptop("SKU010", "Dell", "Model5", 4096, 1024, "Ryzen5", "1920x1080", "Windows", "black", 500.0));
+        logger.info("Загружено " + laptops.size() + " записей");
+        return laptops;
+    }
+
+    static Laptop parseLine(String line){
+        
+        Pattern ptrn =Pattern.compile("(?:^|,)(?=[^\"]|(\")?)\"?((?<f1>(1)(?:[^\"]|\"\")*|[^,\"]*))\"?(?=,|$)"); 
+        Matcher mtch = ptrn.matcher(line);
+        if(mtch.matches())
+            {
+                System.out.println(mtch.group(2));
+            }
+            String[] fields = line.split(ptrn.pattern());
+       /*  Laptop retVal = new Laptop(fields[0].trim(), 
+            fields[1].trim(),
+            Integer.getInteger(fields[6].trim().replaceAll("GB", "")),
+            Integer.getInteger(fields[7].trim().replaceAll("GB", "")), 
+            fields[5].trim(), fields[4].trim(), 
+            (fields[9].trim() + " " + fields[10].trim()).trim(), 
+            //Цвет заполним значением по умолчанию
+            "default", 
+            Double.parseDouble(fields[13].trim().replaceAll("\"", "").replaceAll(",", ".")));
+        //Генерируем артикул
+        retVal.setSKU(UUID.randomUUID().toString()); 
+        return retVal;*/
+        return null;
     }
 
     private static void initLog(String path){
@@ -86,6 +160,7 @@ public class program {
         logger.addHandler(fileHandler);
         ConsoleHandler consoleHandler = new ConsoleHandler();
         consoleHandler.setFormatter(formatter);
+        consoleHandler.setLevel(Level.INFO);
         logger.addHandler(consoleHandler);
         logger.info("Programm started");
     }
